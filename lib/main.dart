@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'theme.dart';
 import 'core_scroll_behavior.dart';
 import 'pages/main_list_page.dart';
@@ -29,6 +30,12 @@ class _AppRootState extends State<AppRoot> {
       darkTheme: AppTheme.dark(),
       themeMode: _mode,
       builder: (context, child) => ScrollConfiguration(behavior: const AppScrollBehavior(), child: child!),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('id')],
       routes: {
         '/': (_) => _ScaffoldShell(
               index: _tab,
@@ -56,7 +63,7 @@ class _ScaffoldShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[index],
+      body: SafeArea(child: pages[index]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
         onDestinationSelected: onIndexChanged,

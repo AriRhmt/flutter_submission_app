@@ -151,7 +151,7 @@ class _MainListPageState extends State<MainListPage> {
                         crossAxisCount: columns,
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
-                        childAspectRatio: 0.9,
+                        childAspectRatio: 3/2,
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {

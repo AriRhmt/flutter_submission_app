@@ -27,7 +27,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     final restaurant = ModalRoute.of(context)!.settings.arguments as Restaurant?;
     if (restaurant == null) {
-      return const Scaffold(body: Center(child: Text('Not found')));
+      return const Scaffold(body: SafeArea(child: Center(child: Text('Not found'))));
     }
     return Scaffold(
       appBar: AppBar(
