@@ -1,0 +1,36 @@
+{
+  "restaurants": [
+    {
+      "id": "r1",
+      "name": "Bistro Lumiere",
+      "city": "Jakarta",
+      "rating": 4.6,
+      "description": "Modern fusion cuisine with a cozy ambience.",
+      "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800"
+    },
+    {
+      "id": "r2",
+      "name": "Warung Nusantara",
+      "city": "Bandung",
+      "rating": 4.4,
+      "description": "Authentic Indonesian dishes and street favorites.",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800"
+    },
+    {
+      "id": "r3",
+      "name": "Sushi Kaze",
+      "city": "Surabaya",
+      "rating": 4.7,
+      "description": "Fresh sushi and sashimi with minimalist design.",
+      "image": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=800"
+    },
+    {
+      "id": "r4",
+      "name": "Cafe Aurora",
+      "city": "Yogyakarta",
+      "rating": 4.5,
+      "description": "Artisanal coffee and brunch with outdoor seating.",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800"
+    }
+  ]
+}
