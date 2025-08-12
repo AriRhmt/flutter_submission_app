@@ -29,6 +29,9 @@ class _HomePageState extends State<HomePage> {
         final width = constraints.maxWidth;
         final columns = Responsive.gridColumnsForWidth(width);
 
+        final isDesktop = Responsive.isDesktop(context);
+        final double cardAspect = columns == 1 ? 1.0 : (isDesktop ? 1.25 : 1.1);
+
         return CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                final items = context.read<ExampleProvider>().items;
+                final items = context.read<ExampleProvider>().items; // read once to avoid rebuilds
                 return SliverPadding(
                   padding: const EdgeInsets.only(top: 12),
                   sliver: SliverGrid(
@@ -56,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisCount: columns,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
-                      childAspectRatio: 1.1,
+                      childAspectRatio: cardAspect,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
@@ -90,7 +93,11 @@ class _Header extends StatelessWidget {
       children: [
         Text('Good afternoon', style: Theme.of(context).textTheme.bodyMedium),
         AppSpacing.xs.vspace,
-        Text('Track your health', style: Theme.of(context).textTheme.displayMedium),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text('Track your health', style: Theme.of(context).textTheme.displayMedium),
+        ),
         AppSpacing.lg.vspace,
         TextField(
           decoration: InputDecoration(

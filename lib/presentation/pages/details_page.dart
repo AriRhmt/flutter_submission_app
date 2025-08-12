@@ -27,6 +27,7 @@ class DetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Hero(
                   tag: 'image_${item.id}',
@@ -39,13 +40,19 @@ class DetailsPage extends StatelessWidget {
                   ),
                 ),
                 AppSpacing.lg.hspace,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(item.title, style: Theme.of(context).textTheme.headlineMedium),
-                    AppSpacing.xs.vspace,
-                    Text(item.subtitle, style: Theme.of(context).textTheme.bodyMedium),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(item.title, style: Theme.of(context).textTheme.headlineMedium),
+                      ),
+                      AppSpacing.xs.vspace,
+                      Text(item.subtitle, style: Theme.of(context).textTheme.bodyMedium),
+                    ],
+                  ),
                 )
               ],
             ),

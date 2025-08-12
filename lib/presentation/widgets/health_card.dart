@@ -65,7 +65,11 @@ class _HealthCardState extends State<HealthCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.item.title, style: Theme.of(context).textTheme.titleLarge),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(widget.item.title, style: Theme.of(context).textTheme.titleLarge),
+                          ),
                           AppSpacing.xs.vspace,
                           Text(widget.item.subtitle, style: Theme.of(context).textTheme.bodyMedium),
                         ],
@@ -77,14 +81,26 @@ class _HealthCardState extends State<HealthCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      widget.item.value,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.primary),
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          widget.item.value,
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.primary),
+                        ),
+                      ),
                     ),
                     AppSpacing.sm.hspace,
-                    Text(
-                      widget.item.unit,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
+                    Flexible(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          widget.item.unit,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
+                        ),
+                      ),
                     ),
                   ],
                 ),

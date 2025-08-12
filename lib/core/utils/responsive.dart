@@ -14,6 +14,7 @@ class Responsive {
   static bool isDesktop(BuildContext context) => MediaQuery.sizeOf(context).width >= AppConstants.tabletBreakpoint;
 
   static int gridColumnsForWidth(double width) {
+    if (width < 360) return 1;
     if (width < AppConstants.mobileBreakpoint) return 2;
     if (width < AppConstants.tabletBreakpoint) return 3;
     return 4;
