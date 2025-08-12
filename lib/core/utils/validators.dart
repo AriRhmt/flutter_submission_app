@@ -1,0 +1,15 @@
+class Validators {
+  Validators._();
+
+  static String? notEmpty(String? value, {String message = 'This field is required'}) {
+    if (value == null || value.trim().isEmpty) return message;
+    return null;
+  }
+
+  static String? email(String? value, {String message = 'Enter a valid email'}) {
+    if (value == null || value.trim().isEmpty) return null; // optional
+    final regex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+    if (!regex.hasMatch(value.trim())) return message;
+    return null;
+  }
+}
