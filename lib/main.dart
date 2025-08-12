@@ -5,6 +5,7 @@ import 'core/theme/app_theme.dart';
 import 'presentation/layouts/main_layout.dart';
 import 'presentation/pages/home_page.dart';
 import 'state/providers/example_provider.dart';
+import 'core/utils/app_scroll_behavior.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Submission App',
         theme: AppTheme.light(),
+        builder: (context, child) => ScrollConfiguration(
+          behavior: const AppScrollBehavior(),
+          child: child!,
+        ),
         home: const MainLayout(child: HomePage()),
       ),
     );

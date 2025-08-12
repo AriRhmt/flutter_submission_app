@@ -19,7 +19,9 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(item.title),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
         padding: AppSpacing.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +56,7 @@ class DetailsPage extends StatelessWidget {
               'Keep consistent logs of your ${item.title.toLowerCase()} to see trends and insights similar to Diabite\'s visuals. This is a sample details screen with clean layout and subtle motion.',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const Spacer(),
+            const SizedBox(height: 24),
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
@@ -65,6 +67,7 @@ class DetailsPage extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }

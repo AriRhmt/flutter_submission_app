@@ -30,11 +30,12 @@ class _HomePageState extends State<HomePage> {
         final columns = Responsive.gridColumnsForWidth(width);
 
         return CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
-            SliverToBoxAdapter(child: _Header()),
+            const SliverToBoxAdapter(child: _Header()),
             SliverPadding(
               padding: const EdgeInsets.only(top: 12, bottom: 8),
-              sliver: SliverToBoxAdapter(child: _QuickActions()),
+              sliver: const SliverToBoxAdapter(child: _QuickActions()),
             ),
             Selector<ExampleProvider, ({bool loading, int count})>(
               selector: (_, p) => (loading: p.isLoading, count: p.items.length),
@@ -81,6 +82,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _Header extends StatelessWidget {
+  const _Header();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -102,11 +104,13 @@ class _Header extends StatelessWidget {
 }
 
 class _QuickActions extends StatelessWidget {
+  const _QuickActions();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 56,
       child: ListView(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         children: const [
           _Chip(text: 'Today'),
