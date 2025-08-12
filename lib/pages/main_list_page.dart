@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../models/restaurant.dart';
 import '../services/restaurant_service.dart';
 import '../services/favorite_service.dart';
@@ -37,10 +38,10 @@ class _MainListPageState extends State<MainListPage> {
     });
     try {
       final data = await _service.fetchRestaurants();
-      final fav = await _favoriteService.loadFavorites();
+      final favRows = await _favoriteService.allFavorites();
       setState(() {
         _items = data;
-        _favorites = fav;
+        _favorites = favRows.map((e) => e['id'] as String).toSet();
       });
     } catch (e) {
       setState(() => _error = e);
@@ -49,10 +50,17 @@ class _MainListPageState extends State<MainListPage> {
     }
   }
 
-  void _toggleFavorite(String id) async {
-    await _favoriteService.toggleFavorite(id);
-    final fav = await _favoriteService.loadFavorites();
-    setState(() => _favorites = fav);
+  void _toggleFavorite(Restaurant r) async {
+    await _favoriteService.toggleFavorite({
+      'id': r.id,
+      'name': r.name,
+      'city': r.city,
+      'rating': r.rating,
+      'description': r.description,
+      'image': r.image,
+    });
+    final favRows = await _favoriteService.allFavorites();
+    setState(() => _favorites = favRows.map((e) => e['id'] as String).toSet());
   }
 
   @override
@@ -152,7 +160,7 @@ class _MainListPageState extends State<MainListPage> {
                           return _RestaurantCard(
                             restaurant: r,
                             isFavorite: isFav,
-                            onFavorite: () => _toggleFavorite(r.id),
+                            onFavorite: () => _toggleFavorite(r),
                             onTap: () => Navigator.of(context).pushNamed('/detail', arguments: r),
                           );
                         },
@@ -196,7 +204,7 @@ class _RestaurantCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.network(restaurant.image, fit: BoxFit.cover),
+                child: CachedNetworkImage(imageUrl: restaurant.image, fit: BoxFit.cover, placeholder: (c,_)=>Container(color: Colors.black12), errorWidget: (c,_,__)=>(const Icon(Icons.broken_image_rounded))),
               ),
             ),
           ),

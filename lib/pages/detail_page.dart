@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../services/favorite_service.dart';
 
 class DetailPage extends StatefulWidget {
@@ -35,7 +36,14 @@ class _DetailPageState extends State<DetailPage> {
           IconButton(
             icon: Icon(_isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded, color: Colors.pinkAccent),
             onPressed: () async {
-              await _favoriteService.toggleFavorite(restaurant.id);
+              await _favoriteService.toggleFavorite({
+                'id': restaurant.id,
+                'name': restaurant.name,
+                'city': restaurant.city,
+                'rating': restaurant.rating,
+                'description': restaurant.description,
+                'image': restaurant.image,
+              });
               final v = await _favoriteService.isFavorite(restaurant.id);
               setState(() => _isFav = v);
             },
@@ -54,7 +62,7 @@ class _DetailPageState extends State<DetailPage> {
                 borderRadius: BorderRadius.circular(16),
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
-                  child: Image.network(restaurant.image, fit: BoxFit.cover),
+                  child: CachedNetworkImage(imageUrl: restaurant.image, fit: BoxFit.cover, placeholder: (c,_)=>Container(color: Colors.black12), errorWidget: (c,_,__)=>(const Icon(Icons.broken_image_rounded))),
                 ),
               ),
             ),
