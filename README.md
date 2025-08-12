@@ -1,19 +1,17 @@
-# Flutter Submission App
+# Flutter Submission App (Dicoding Rating 5 Enhancements)
 
-This is a sample Flutter project for submission requirements.
+This branch (`improvement-rating5`) enhances the app to meet Dicoding criteria:
 
-## Features
-- **Stateless Widget**: Displays Row of icons.
-- **Stateful Widget**: TextField to input and display text dynamically.
-- **Navigation**: Two pages with named route navigation.
-- **Responsive**: Uses SingleChildScrollView to avoid overflow.
+- Modern UI with custom theme (GoogleFonts, rounded cards, soft shadows)
+- Responsive layouts (LayoutBuilder/MediaQuery, Expanded/Flexible, SingleChildScrollView)
+- Multiple pages and navigation with smooth transitions (Hero, PageRoute)
+- Dynamic list with images and search/filter
+- Form validation on Home
+- Clean code structure: pages/, widgets/, models/, services/
 
-## How to Run
-1. Install Flutter SDK.
-2. Extract the ZIP file.
-3. Open the folder in VS Code.
-4. Run:
-   ```bash
-   flutter pub get
-   flutter run
-   ```
+## Run
+```bash
+flutter pub get
+flutter run -d chrome
+# or on a device/emulator
+```

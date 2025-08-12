@@ -1,5 +1,5 @@
 name: flutter_submission_app
-description: A Flutter submission project example.
+description: A Flutter submission project enhanced for Dicoding rating 5 compliance.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -10,6 +10,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  google_fonts: ^6.2.1
+  shimmer: ^3.0.0
+  shared_preferences: ^2.2.3
+  sqflite: ^2.3.3
+  cached_network_image: ^3.3.1
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +24,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/data/
