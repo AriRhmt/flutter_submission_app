@@ -19,17 +19,7 @@ class RestaurantProvider extends ChangeNotifier {
     notifyListeners();
     try {
       final data = await _api.fetchList();
-      // Map existing Restaurant model to RestaurantSummary if necessary
-      final summaries = data
-          .map((r) => RestaurantSummary(
-                id: r.id,
-                name: r.name,
-                city: r.city,
-                rating: r.rating,
-                pictureId: r.image, // in your existing model this is image URL; API-based page will directly use pictureId
-              ))
-          .toList();
-      _state = ApiData<List<RestaurantSummary>>(summaries);
+      _state = ApiData<List<RestaurantSummary>>(data);
     } catch (e) {
       _state = ApiError<List<RestaurantSummary>>(e.toString());
     }
@@ -46,16 +36,7 @@ class RestaurantProvider extends ChangeNotifier {
     notifyListeners();
     try {
       final data = await _api.search(q.trim());
-      final summaries = data
-          .map((r) => RestaurantSummary(
-                id: r.id,
-                name: r.name,
-                city: r.city,
-                rating: r.rating,
-                pictureId: r.image,
-              ))
-          .toList();
-      _state = ApiData<List<RestaurantSummary>>(summaries);
+      _state = ApiData<List<RestaurantSummary>>(data);
     } catch (e) {
       _state = ApiError<List<RestaurantSummary>>(e.toString());
     }

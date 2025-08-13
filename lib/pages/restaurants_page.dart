@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/restaurant_provider.dart';
 import '../states/api_state.dart';
 import '../services/restaurant_api_service.dart';
+import '../models/restaurant_summary.dart';
 
 class RestaurantsPage extends StatelessWidget {
   const RestaurantsPage({super.key});
@@ -42,7 +43,7 @@ class RestaurantsPage extends StatelessWidget {
               );
             }
 
-            final data = (state as ApiData<List>).value as List; // List<RestaurantSummary>
+            final data = (state as ApiData<List>).value as List<RestaurantSummary>;
             return RefreshIndicator(
               onRefresh: provider.load,
               child: CustomScrollView(
@@ -69,7 +70,7 @@ class RestaurantsPage extends StatelessWidget {
                       return ListTile(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         leading: Hero(
-                          tag: 'rest_img_${r.id}',
+                          tag: 'api_rest_img_${r.id}',
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.network(imgUrl, width: 64, height: 64, fit: BoxFit.cover),
@@ -89,10 +90,10 @@ class RestaurantsPage extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.chevron_right_rounded),
                         onTap: () {
-                          Navigator.of(context).pushNamed('/detail', arguments: {
+                          Navigator.of(context).pushNamed('/api_detail', arguments: {
                             'id': r.id,
                             'name': r.name,
-                            'imgTag': 'rest_img_${r.id}',
+                            'imgTag': 'api_rest_img_${r.id}',
                             'imgUrl': imgUrl,
                           });
                         },

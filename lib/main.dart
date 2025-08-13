@@ -9,6 +9,7 @@ import 'pages/grocery_page.dart';
 import 'pages/details_page.dart';
 import 'pages/list_page.dart';
 import 'pages/restaurants_page.dart';
+import 'pages/api_detail_page.dart';
 
 void main() {
   runApp(const AppRoot());
@@ -57,6 +58,7 @@ class _AppRootState extends State<AppRoot> {
         '/details': (_) => const DetailsPage(),
         '/list': (_) => const ListPage(),
         '/api': (_) => const RestaurantsPage(),
+        '/api_detail': (_) => const ApiDetailPage(),
       },
     );
   }
