@@ -4,9 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color primary = Color(0xFF4F46E5);
-  static const Color secondary = Color(0xFF6366F1);
-  static const Color accent = Color(0xFFFBBF24);
+  // Updated primary color to #FF7043 as requested; tuned supporting colors for contrast
+  static const Color primary = Color(0xFFFF7043);
+  static const Color secondary = Color(0xFFFF8A65);
+  static const Color accent = Color(0xFF26C6DA);
   static const Color background = Color(0xFFF7F9FC);
   static const Color surface = Colors.white;
   static const Color textPrimary = Color(0xFF0B0F1A);
@@ -38,6 +39,15 @@ class AppTheme {
       elevatedButtonTheme: _buttonTheme(textTheme),
       cardTheme: _cardTheme(),
       dividerColor: Colors.black12,
+      // Smooth transitions across platforms
+      pageTransitionsTheme: const PageTransitionsTheme(builders: {
+        TargetPlatform.android: ZoomPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.linux: ZoomPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+        TargetPlatform.fuchsia: ZoomPageTransitionsBuilder(),
+      }),
     );
   }
 
@@ -68,6 +78,14 @@ class AppTheme {
       elevatedButtonTheme: _buttonTheme(textTheme),
       cardTheme: _cardTheme(isDark: true),
       dividerColor: Colors.white12,
+      pageTransitionsTheme: const PageTransitionsTheme(builders: {
+        TargetPlatform.android: ZoomPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.linux: ZoomPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+        TargetPlatform.fuchsia: ZoomPageTransitionsBuilder(),
+      }),
     );
   }
 
@@ -76,7 +94,8 @@ class AppTheme {
         headlineMedium: t.headlineMedium?.copyWith(fontWeight: FontWeight.w700, fontSize: 24),
         titleLarge: t.titleLarge?.copyWith(fontWeight: FontWeight.w600, fontSize: 20),
         bodyLarge: t.bodyLarge?.copyWith(fontSize: 16),
-        bodyMedium: t.bodyMedium?.copyWith(fontSize: 14),
+        bodyMedium: t.bodyMedium?.copyWith(fontSize: 14, color: textSecondary),
+        labelLarge: t.labelLarge?.copyWith(fontWeight: FontWeight.w600),
       );
 
   static InputDecorationTheme _inputTheme({bool isDark = false}) => InputDecorationTheme(
@@ -85,6 +104,14 @@ class AppTheme {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: isDark ? Colors.white12 : Colors.black12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: primary.withOpacity(0.8), width: 1.5),
         ),
       );
 
