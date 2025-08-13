@@ -43,7 +43,7 @@ class RestaurantsPage extends StatelessWidget {
               );
             }
 
-            final data = (state as ApiData<List>).value as List<RestaurantSummary>;
+            final data = (state as ApiData<List<RestaurantSummary>>).value;
             return RefreshIndicator(
               onRefresh: provider.load,
               child: CustomScrollView(
@@ -61,44 +61,50 @@ class RestaurantsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SliverList.separated(
-                    itemCount: data.length,
-                    separatorBuilder: (_, __) => const Divider(height: 1),
-                    itemBuilder: (context, index) {
-                      final r = data[index];
-                      final imgUrl = RestaurantApiService().imageUrl(r.pictureId);
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        leading: Hero(
-                          tag: 'api_rest_img_${r.id}',
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(imgUrl, width: 64, height: 64, fit: BoxFit.cover),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        if (index.isOdd) {
+                          return const Divider(height: 1);
+                        }
+                        final itemIndex = index ~/ 2;
+                        if (itemIndex >= data.length) return null;
+                        final r = data[itemIndex];
+                        final imgUrl = RestaurantApiService().imageUrl(r.pictureId);
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          leading: Hero(
+                            tag: 'api_rest_img_${r.id}',
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(imgUrl, width: 64, height: 64, fit: BoxFit.cover),
+                            ),
                           ),
-                        ),
-                        title: Text(r.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-                        subtitle: Row(
-                          children: [
-                            const Icon(Icons.place_rounded, size: 16),
-                            const SizedBox(width: 4),
-                            Flexible(child: Text(r.city, maxLines: 1, overflow: TextOverflow.ellipsis)),
-                            const SizedBox(width: 12),
-                            const Icon(Icons.star_rounded, color: Colors.amber, size: 16),
-                            const SizedBox(width: 4),
-                            Text(r.rating.toStringAsFixed(1)),
-                          ],
-                        ),
-                        trailing: const Icon(Icons.chevron_right_rounded),
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/api_detail', arguments: {
-                            'id': r.id,
-                            'name': r.name,
-                            'imgTag': 'api_rest_img_${r.id}',
-                            'imgUrl': imgUrl,
-                          });
-                        },
-                      );
-                    },
+                          title: Text(r.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                          subtitle: Row(
+                            children: [
+                              const Icon(Icons.place_rounded, size: 16),
+                              const SizedBox(width: 4),
+                              Flexible(child: Text(r.city, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                              const SizedBox(width: 12),
+                              const Icon(Icons.star_rounded, color: Colors.amber, size: 16),
+                              const SizedBox(width: 4),
+                              Text(r.rating.toStringAsFixed(1)),
+                            ],
+                          ),
+                          trailing: const Icon(Icons.chevron_right_rounded),
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/api_detail', arguments: {
+                              'id': r.id,
+                              'name': r.name,
+                              'imgTag': 'api_rest_img_${r.id}',
+                              'imgUrl': imgUrl,
+                            });
+                          },
+                        );
+                      },
+                      childCount: data.isEmpty ? 0 : (data.length * 2 - 1),
+                    ),
                   ),
                 ],
               ),
