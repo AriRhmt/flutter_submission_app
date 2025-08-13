@@ -5,6 +5,11 @@ import 'core_scroll_behavior.dart';
 import 'pages/main_list_page.dart';
 import 'pages/detail_page.dart';
 import 'pages/settings_page.dart';
+import 'pages/grocery_page.dart';
+import 'pages/details_page.dart';
+import 'pages/list_page.dart';
+import 'pages/restaurants_page.dart';
+import 'pages/api_detail_page.dart';
 
 void main() {
   runApp(const AppRoot());
@@ -42,6 +47,7 @@ class _AppRootState extends State<AppRoot> {
               onIndexChanged: (i) => setState(() => _tab = i),
               pages: [
                 const MainListPage(),
+                const GroceryPage(),
                 SettingsPage(
                   themeMode: _mode,
                   onThemeModeChanged: (m) => setState(() => _mode = m),
@@ -49,6 +55,10 @@ class _AppRootState extends State<AppRoot> {
               ],
             ),
         '/detail': (_) => const DetailPage(),
+        '/details': (_) => const DetailsPage(),
+        '/list': (_) => const ListPage(),
+        '/api': (_) => const RestaurantsPage(),
+        '/api_detail': (_) => const ApiDetailPage(),
       },
     );
   }
@@ -68,9 +78,15 @@ class _ScaffoldShell extends StatelessWidget {
         selectedIndex: index,
         onDestinationSelected: onIndexChanged,
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.restaurant_menu_rounded), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.restaurant_menu_rounded), label: 'Discover'),
+          NavigationDestination(icon: Icon(Icons.shopping_basket_rounded), label: 'Grocery'),
           NavigationDestination(icon: Icon(Icons.settings_rounded), label: 'Settings'),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.of(context).pushNamed('/api'),
+        icon: const Icon(Icons.cloud_rounded),
+        label: const Text('API'),
       ),
     );
   }

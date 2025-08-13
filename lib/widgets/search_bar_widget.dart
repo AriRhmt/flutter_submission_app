@@ -21,12 +21,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Color surface = Theme.of(context).colorScheme.surface;
+    final Color border = Theme.of(context).dividerColor;
     return FocusScope(
       onFocusChange: (f) => setState(() => _focused = f),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: surface,
           borderRadius: BorderRadius.circular(28),
           boxShadow: [
             BoxShadow(
@@ -35,7 +37,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               offset: const Offset(0, 6),
             ),
           ],
-          border: Border.all(color: Colors.black.withOpacity(0.06)),
+          border: Border.all(color: border),
         ),
         child: TextField(
           controller: _controller,

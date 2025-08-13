@@ -11,14 +11,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color surface = Theme.of(context).colorScheme.surface;
+    final Color shadow = Colors.black.withOpacity(0.08);
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: AppBar(
           title: Text(title),
-          backgroundColor: Colors.white.withOpacity(0.6),
+          backgroundColor: surface.withOpacity(0.85),
           elevation: 6,
-          shadowColor: Colors.black.withOpacity(0.08),
+          shadowColor: shadow,
           surfaceTintColor: Colors.transparent,
           actions: actions,
         ),
