@@ -8,6 +8,7 @@ import 'pages/settings_page.dart';
 import 'pages/grocery_page.dart';
 import 'pages/details_page.dart';
 import 'pages/list_page.dart';
+import 'pages/restaurants_page.dart';
 
 void main() {
   runApp(const AppRoot());
@@ -55,6 +56,7 @@ class _AppRootState extends State<AppRoot> {
         '/detail': (_) => const DetailPage(),
         '/details': (_) => const DetailsPage(),
         '/list': (_) => const ListPage(),
+        '/api': (_) => const RestaurantsPage(),
       },
     );
   }
@@ -78,6 +80,11 @@ class _ScaffoldShell extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.shopping_basket_rounded), label: 'Grocery'),
           NavigationDestination(icon: Icon(Icons.settings_rounded), label: 'Settings'),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.of(context).pushNamed('/api'),
+        icon: const Icon(Icons.cloud_rounded),
+        label: const Text('API'),
       ),
     );
   }
