@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
           child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              gradient: const LinearGradient(colors: [Color(0xFF4F46E5), Color(0xFF6366F1)]),
+              gradient: const LinearGradient(colors: [Color(0xFFFF7043), Color(0xFFFF8A65)]),
               boxShadow: const [BoxShadow(color: Color(0x330B0F1A), blurRadius: 12, offset: Offset(0, 6))],
             ),
             child: Padding(
@@ -34,12 +34,12 @@ class CustomButton extends StatelessWidget {
       case _Variant.secondary:
         return OutlinedButton(
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Color(0xFF4F46E5)),
+            side: const BorderSide(color: Color(0xFFFF7043)),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           ),
           onPressed: onPressed,
-          child: Text(label, style: const TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.w600)),
+          child: Text(label, style: const TextStyle(color: Color(0xFFFF7043), fontWeight: FontWeight.w600)),
         );
     }
   }

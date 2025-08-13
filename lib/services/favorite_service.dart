@@ -1,53 +1,32 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as p;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteService {
-  static const _dbName = 'app.db';
-  static const _table = 'favorites';
-  static Database? _db;
+  static const String _prefsKey = 'favorite_ids';
 
-  Future<Database> _open() async {
-    if (_db != null) return _db!;
-    final dbPath = await getDatabasesPath();
-    final path = p.join(dbPath, _dbName);
-    _db = await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE $_table (
-            id TEXT PRIMARY KEY,
-            name TEXT NOT NULL,
-            city TEXT NOT NULL,
-            rating REAL NOT NULL,
-            description TEXT NOT NULL,
-            image TEXT NOT NULL
-          )
-        ''');
-      },
-    );
-    return _db!;
-  }
+  Future<SharedPreferences> _prefs() async => SharedPreferences.getInstance();
 
   Future<void> toggleFavorite(Map<String, dynamic> restaurant) async {
-    final db = await _open();
-    final id = restaurant['id'] as String;
-    final existing = await db.query(_table, where: 'id = ?', whereArgs: [id]);
-    if (existing.isNotEmpty) {
-      await db.delete(_table, where: 'id = ?', whereArgs: [id]);
+    final prefs = await _prefs();
+    final String id = restaurant['id'] as String;
+    final List<String> current = prefs.getStringList(_prefsKey) ?? <String>[];
+    if (current.contains(id)) {
+      current.remove(id);
     } else {
-      await db.insert(_table, restaurant, conflictAlgorithm: ConflictAlgorithm.replace);
+      current.add(id);
     }
+    await prefs.setStringList(_prefsKey, current);
   }
 
   Future<bool> isFavorite(String id) async {
-    final db = await _open();
-    final rows = await db.query(_table, where: 'id = ?', whereArgs: [id]);
-    return rows.isNotEmpty;
+    final prefs = await _prefs();
+    final List<String> current = prefs.getStringList(_prefsKey) ?? <String>[];
+    return current.contains(id);
   }
 
   Future<List<Map<String, dynamic>>> allFavorites() async {
-    final db = await _open();
-    return db.query(_table, orderBy: 'name ASC');
+    final prefs = await _prefs();
+    final List<String> current = prefs.getStringList(_prefsKey) ?? <String>[];
+    // Return list of maps to be compatible with existing code that expects maps with 'id'
+    return current.map((id) => {'id': id}).toList();
   }
 }
