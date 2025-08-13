@@ -72,7 +72,7 @@ class RestaurantsPage extends StatelessWidget {
                       ),
                     ),
                   )
-                else if (state is ApiError<List>)
+                else if (state is ApiError<List<RestaurantSummary>>)
                   SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
